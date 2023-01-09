@@ -26,6 +26,20 @@ def limit_handler(cursor):
    except StopIteration:
       return
 
+search_string = 'python'
+numberOfTweets = 2
+
+for tweet in tweepy.Cursor(api.search_tweets, search_string).items(numberOfTweets):
+   try:
+      tweet.favorite()
+      print("I liked the tweet")
+   except tweepy.TweepErorr as e:
+      print(e.reason)
+   except StopIteration:
+      break
+
+
+
 
 for follower in limit_handler(tweepy.Cursor(api.get_followers).items()):
    if follower.name == 'Denise Lao':
